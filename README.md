@@ -5,15 +5,23 @@
 
 ## **What is Ansible?**
 
+
 Ansible is a powerful automation tool designed for IT professionals, streamlining tasks like application deployment, server updates, cloud provisioning, and configuration management. Its agentless architecture simplifies deployment and eliminates additional security concerns. Ansible operates through simple, human-readable scripts, making version control easy and supporting the "infrastructure as code" movement, which treats IT maintenance like software development. While it excels in automation and DevOps, Ansible is also accessible to everyday users, allowing the configuration of multiple computers without requiring programming skills. Its straightforward instructions make it easy for both beginners and experts to use effectively.
 
 
 ## **How ansible work:-**
 
+![Ansible Tutorial – Learn How To Write Ansible Playbooks](https://t26435589.p.clickup-attachments.com/t26435589/f77b0b9b-dce9-45fe-8068-5dfe0e4efdd1/image.png)
+
+
 Ansible operates using a two-tier architecture consisting of a control node and managed nodes. The control node runs Ansible, while managed nodes are the devices being configured. Ansible connects to these nodes over a network and sends small programs called Ansible modules, which are executed via SSH. Once the tasks are completed, the modules are removed from the managed nodes. The primary requirement for this process is that the control node has login access to the managed nodes, typically achieved through SSH keys, though other authentication methods are also supported.
 
 
 ## **What Ansible does?**
+
+
+
+![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXe0X82rE3Rsb68pAQPB1dDdwpl80kRosip9AUUEiJDhBH62O2DCqjDyUdT5qUbRgvAGRckrp-58f9K27bfK7mmYmpfvkJ-Tm8F6qKjFGddcuPzt3IxnKPEqWBALs2HQ2Tn5bqviD5Jmdbp1E-G5JCWlE2Bd?key=F-1iERCLDPTqpxBPmtHaRA)
 
 Ansible simplifies system management through the use of Ansible modules, which model the desired state of a system. Each module specifies what should be true for a managed node. For example, if a systems administrator wants all workstations to have LibreOffice version X.Z installed, Ansible checks each node and updates any with an older version. This enables seamless overnight updates across an organization.
 
@@ -21,6 +29,7 @@ Using Ansible effectively means leveraging these modules to automate tasks acros
 
 
 ## **Ansible Playbook**
+![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXdxTtuHjmopLrQZrKZk03iqLCqihu3jZ03ucb93MmYFKFqvHTVFUQ3ZH3M0wlKxUOHXLvxb1C_ZZWA8lT8cJeAVOtSplH6voiqRE74AYTGBTpYzCe8ScECbZmu-0e12k3G7ixBQajFPBlFc5Splx6Gtr2Hl?key=F-1iERCLDPTqpxBPmtHaRA)
 
 Ansible playbooks are configuration files written in YAML that outline the steps needed to achieve a desired state for managed nodes. They provide clear, human-readable instructions and are designed to be self-documenting. One of their key features is idempotence, meaning a playbook can be executed multiple times without causing adverse effects. If a playbook is run on a system that's already properly configured, the system remains unchanged, ensuring consistent and reliable management. This simplicity and reliability make playbooks an essential tool for automating IT tasks with Ansible.
 ## **Objective**
