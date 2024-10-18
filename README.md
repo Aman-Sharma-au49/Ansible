@@ -59,6 +59,21 @@ This playbook automates the process of:
 
 **Ansible server**
 
+\*OS details:\*\
+PRETTY\_NAME="Ubuntu 22.04.5 LTS"\
+NAME="Ubuntu"\
+VERSION\_ID="22.04"\
+VERSION="22.04.5 LTS (Jammy Jellyfish)"\
+VERSION\_CODENAME=jammy\
+ID=ubuntu\
+ID\_LIKE=debian\
+HOME\_URL="https\://www\.ubuntu.com/"\
+SUPPORT\_URL="https\://help.ubuntu.com/"\
+BUG\_REPORT\_URL="https\://bugs.launchpad.net/ubuntu/"\
+PRIVACY\_POLICY\_URL="https\://www\.ubuntu.com/legal/terms-and-policies/privacy-policy"\
+UBUNTU\_CODENAME=jammy
+
+
 - Add Ansible Personal Package Archive (PPA) to install or update Ansible
 
 ```
@@ -285,6 +300,20 @@ sudo vim main.yml
 
 ### **first-rhbk**
 
+\*OS details:\*NAME="Ubuntu"\
+VERSION="20.04.6 LTS (Focal Fossa)"\
+ID=ubuntu\
+ID\_LIKE=debian\
+PRETTY\_NAME="Ubuntu 20.04.6 LTS"\
+VERSION\_ID="20.04"\
+HOME\_URL="https\://www\.ubuntu.com/"\
+SUPPORT\_URL="https\://help.ubuntu.com/"\
+BUG\_REPORT\_URL="https\://bugs.launchpad.net/ubuntu/"\
+PRIVACY\_POLICY\_URL="https\://www\.ubuntu.com/legal/terms-and-policies/privacy-policy"\
+VERSION\_CODENAME=focal\
+UBUNTU\_CODENAME=focal
+
+
 - Download rhbk-24.0.3.zip
 - change the directory
   ```
@@ -359,6 +388,22 @@ pushpender ALL=(ALL) NOPASSWD: ALL
 
 
 ### **second\_rhbk**
+
+\*OS details:\*
+
+NAME="Ubuntu"\
+VERSION="20.04.6 LTS (Focal Fossa)"\
+ID=ubuntu\
+ID\_LIKE=debian\
+PRETTY\_NAME="Ubuntu 20.04.6 LTS"\
+VERSION\_ID="20.04"\
+HOME\_URL="https\://www\.ubuntu.com/"\
+SUPPORT\_URL="https\://help.ubuntu.com/"\
+BUG\_REPORT\_URL="https\://bugs.launchpad.net/ubuntu/"\
+PRIVACY\_POLICY\_URL="https\://www\.ubuntu.com/legal/terms-and-policies/privacy-policy"\
+VERSION\_CODENAME=focal\
+UBUNTU\_CODENAME=focal
+
 
 - Download rhbk-24.0.3.zip
 
