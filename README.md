@@ -189,137 +189,92 @@ sudo vim main.yml
 - Change all the Path according to your server name
 ```
 ---
-
 - name: Change the zip file & copy it
+  hosts: localhost
+  become: yes
 
-  hosts: localhost
+  tasks:
+    - name: Ensure Downloads directory exists
+      file:
+        path: /home/aman/Downloads
+        state: directory
+        mode: '0755'
 
-  become: yes
+    - name: Extract the zip file
+      unarchive:
+        src: /home/aman/Downloads/rhbk-24.0.3.zip
+        dest: /home/aman/Downloads/aman/
+        remote_src: yes
 
-  tasks:
+    - name: Change extracted files into a jar file
+      command: jar cvf /home/aman/Downloads/aman/rhbk.jar -C /home/aman/Downloads/aman/rhbk-24.0.3 .
 
-    - name: Ensure Downloads directory exists
+- name: Copy the jar file 
+  hosts: all
+  become: yes
 
-      file:
-
-        path: /home/aman/Downloads
-
-        state: directory
-
-        mode: '0755'
-
-    - name: Extract the zip file
-
-      unarchive:
-
-        src: /home/aman/Downloads/rhbk-24.0.3.zip
-
-        dest: /home/aman/Downloads/aman/
-
-        remote_src: yes
-
-    - name: Change extracted files into a jar file
-
-      command: jar cvf /home/aman/Downloads/aman/rhbk.jar -C /home/aman/Downloads/aman/rhbk-24.0.3 .
-
-- name: Copy the jar file 
-
-  hosts: all
-
-  become: yes
-
-  tasks:
-
+  tasks:
 - name: Manage JAR file on First server
+  hosts: webservers
+  become: yes
 
-  hosts: webservers
+  tasks:
+    - name: Check if the existing jar file exists on first server
+      stat:
+        path: /home/first-rhbk/Downloads/rhbk-24.0.3/providers/rhbk.jar
+      register: rhbk_file
 
-  become: yes
+    - name: Backup the existing jar file on first server
+      copy:
+        src: /home/first-rhbk/Downloads/rhbk-24.0.3/providers/rhbk.jar
+        dest: "/home/first-rhbk/aman/backup/rhbk.jar.{{ ansible_date_time.iso8601 }}"
+        remote_src: yes
+      when: rhbk_file.stat.exists
 
-  tasks:
+    - name: Copy jar file from Ansible server to first server
+      copy:
+        src: /home/aman/Downloads/aman/rhbk.jar
+        dest: /home/first-rhbk/Downloads/rhbk-24.0.3/providers/
 
-    - name: Check if the existing jar file exists on first server
-
-      stat:
-
-        path: /home/first-rhbk/Downloads/rhbk-24.0.3/providers/rhbk.jar
-
-      register: rhbk_file
-
-    - name: Backup the existing jar file on first server
-
-      copy:
-
-        src: /home/first-rhbk/Downloads/rhbk-24.0.3/providers/rhbk.jar
-
-        dest: "/home/first-rhbk/aman/backup/rhbk.jar.{{ ansible_date_time.iso8601 }}"
-
-        remote_src: yes
-
-      when: rhbk_file.stat.exists
-
-    - name: Copy jar file from Ansible server to first server
-
-      copy:
-
-        src: /home/aman/Downloads/aman/rhbk.jar
-
-        dest: /home/first-rhbk/Downloads/rhbk-24.0.3/providers/
-
-    - name: Build file in first RHBK
-
-      command: /home/first-rhbk/Downloads/rhbk-24.0.3/bin/kc.sh
-
-    - name: Restart RHBK server
-
-      command: systemctl restart nginx.service
-
-
+    - name: Build file in first RHBK
+      command: /home/first-rhbk/Downloads/rhbk-24.0.3/bin/kc.sh
+    - name: Restart nginx server
+      service:
+        name: nginx
+        state: restarted
 
 
 - name: Second server
+  hosts: webservers1
+  become: yes
 
-  hosts: webservers1
+  tasks:
+    - name: Check if the existing jar file exists on second server
+      stat:
+        path: /home/second_rhbk/Downloads/rhbk-24.0.3/providers/rhbk.jar
+      register: rhbk_file
 
-  become: yes
+    - name: Backup the existing jar file on second server
+      copy:
+        src: /home/second_rhbk/Downloads/rhbk-24.0.3/providers/rhbk.jar
+        dest: "/home/second_rhbk/aman/backup/rhbk.jar.{{ ansible_date_time.iso8601 }}"
+        remote_src: yes
+      when: rhbk_file.stat.exists
 
-  tasks:
+    - name: Copy jar file from Ansible server to second server
+      copy:
+        src: /home/aman/Downloads/aman/rhbk.jar
+        dest: /home/second_rhbk/Downloads/rhbk-24.0.3/providers/
 
-    - name: Check if the existing jar file exists on second server
+    - name: Build file in second RHBK
+      command: /home/second_rhbk/Downloads/rhbk-24.0.3/bin/kc.sh
 
-      stat:
+    - name: Restart nginx server
+      service:
+        name: nginx
+        state: restarted
 
-        path: /home/second_rhbk/Downloads/rhbk-24.0.3/providers/rhbk.jar
 
-      register: rhbk_file
-
-    - name: Backup the existing jar file on second server
-
-      copy:
-
-        src: /home/second_rhbk/Downloads/rhbk-24.0.3/providers/rhbk.jar
-
-        dest: "/home/second_rhbk/aman/backup/rhbk.jar.{{ ansible_date_time.iso8601 }}"
-
-        remote_src: yes
-
-      when: rhbk_file.stat.exists
-
-    - name: Copy jar file from Ansible server to second server
-
-      copy:
-
-        src: /home/aman/Downloads/aman/rhbk.jar
-
-        dest: /home/second_rhbk/Downloads/rhbk-24.0.3/providers/
-
-    - name: Build file in second RHBK
-
-      command: /home/second_rhbk/Downloads/rhbk-24.0.3/bin/kc.sh
-
-    - name: Restart rhbk server
-
-      command: systemctl restart nginx.service
 
 
 
